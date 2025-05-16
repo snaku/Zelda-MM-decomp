@@ -1,4 +1,6 @@
-#include "../include\MM_Actor.h"
+#include "../include/MM_Actor.h"
+
+float gDeltaTime = 0.0f;
 
 // FUN_800b69ac
 void updateActorPosition(Actor* actor)
