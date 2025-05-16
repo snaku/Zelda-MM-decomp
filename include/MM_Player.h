@@ -9,5 +9,7 @@ struct SavePlayerData;
 
 bool ModifyHealth(int unused_1, short heart);
 void ModifyMagic();
+void addMagic(int unused_1, short amount);
+int FUN_80115db4(int param_1, short param_2, short param_3);
 
 #endif
