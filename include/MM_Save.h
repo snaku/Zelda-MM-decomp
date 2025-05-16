@@ -19,8 +19,4 @@ typedef struct SavePlayerData
     bool doubleDefense; /* 0x1e */
 } SavePlayerData;
 
-extern SavePlayerData gPlayerData;
-
-bool ModifyHealth(int unused_1, short heart);
-
 #endif
