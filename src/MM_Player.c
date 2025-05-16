@@ -2,7 +2,7 @@
 #include "../include/MM_Player.h"
 
 SavePlayerData gPlayerData;
-short addMagic = 0;
+short magicAmount = 0;
 bool maybeRequestMagic = false;
 
 // FUN_80115908
@@ -36,6 +36,8 @@ bool ModifyHealth(int unused_1, short healthChange)
 // FUN_80116088
 void ModifyMagic()
 {
+    // TODO
+
     if (maybeRequestMagic)
     {
         gPlayerData.magic += 4;
@@ -44,13 +46,51 @@ void ModifyMagic()
         if (gPlayerData.magic >= gPlayerData.magicCapacity)
         {
             gPlayerData.magic = gPlayerData.magicCapacity;
-            if ((addMagic + -4) < 0)
+            if ((magicAmount + -4) < 0)
             {
                 
             }
         }
 
-        addMagic = 0;
+        magicAmount = 0;
         maybeRequestMagic = false;
     }
+}
+
+// FUN_80115d14
+void addMagic(int unused_1, short amount)
+{
+    if (gPlayerData.magic < gPlayerData.magicCapacity)
+    {
+        maybeRequestMagic = true;
+        magicAmount += amount;
+    }
+}
+
+
+int FUN_80115db4(int param_1, short param_2, short param_3)
+{
+    // TODO
+
+    int uVar2;
+    int iVar3;
+
+    if (!gPlayerData.magicAcquired)
+    {
+        uVar2 = 0;
+    }
+    else
+    {
+        iVar3 = gPlayerData.magic;
+        if (iVar3 - param_2 < 0)
+        {
+            if (gPlayerData.magicCapacity != 0)
+            {
+                // playSound(0x4806);
+            }
+            uVar2 = 0;
+        }
+    }
+
+    return uVar2;
 }
