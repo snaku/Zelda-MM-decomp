@@ -18,6 +18,4 @@ typedef struct Actor
     float accel_z; /* 0xac */
 } Actor;
 
-extern float gDeltaTime;
-
 void updateActorPosition(Actor* actor);
