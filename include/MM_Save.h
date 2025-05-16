@@ -17,6 +17,7 @@ typedef struct SavePlayerData
     short rupees; /* 0x16 */
     char pad1[0x1e];
     bool doubleDefense; /* 0x1e */
+    bool magicAcquired;
 } SavePlayerData;
 
 #endif
