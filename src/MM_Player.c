@@ -36,26 +36,26 @@ bool ModifyHealth(int unused_1, short healthChange)
 // FUN_80101930
 bool isHealthLow()
 {
-    short sVar1;
+    short lowHealthThreshold;
 
     if (gPlayerData.healthCapacity < 0x51)
     {
-        sVar1 = 0x10;
+        lowHealthThreshold = 0x10;
     }
     else if (gPlayerData.healthCapacity < 0xa1)
     {
-        sVar1 = 0x18;
+        lowHealthThreshold = 0x18;
+    }
+    else if (gPlayerData.healthCapacity < 0xf1)   
+    {   
+        lowHealthThreshold = 0x20; 
     }
     else
     {
-        sVar1 = 0x2c;
-        if (gPlayerData.healthCapacity < 0xf1)
-        {
-            sVar1 = 0x20;
-        }
+        lowHealthThreshold = 0x2c;
     }
-    
-    if (gPlayerData.health <= sVar1 && gPlayerData.health > 0)
+
+    if (gPlayerData.health <= lowHealthThreshold && gPlayerData.health > 0)
     {
         return true;
     }
