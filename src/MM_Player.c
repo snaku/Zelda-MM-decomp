@@ -33,6 +33,36 @@ bool ModifyHealth(int unused_1, short healthChange)
     return true; // vivant
 }
 
+// FUN_80101930
+bool isHealthLow()
+{
+    short sVar1;
+
+    if (gPlayerData.healthCapacity < 0x51)
+    {
+        sVar1 = 0x10;
+    }
+    else if (gPlayerData.healthCapacity < 0xa1)
+    {
+        sVar1 = 0x18;
+    }
+    else
+    {
+        sVar1 = 0x2c;
+        if (gPlayerData.healthCapacity < 0xf1)
+        {
+            sVar1 = 0x20;
+        }
+    }
+    
+    if (gPlayerData.health <= sVar1 && gPlayerData.health > 0)
+    {
+        return true;
+    }
+
+    return false;
+}
+
 // FUN_80116088
 void ModifyMagic()
 {
@@ -67,28 +97,32 @@ void addMagic(int unused_1, short amount)
     }
 }
 
-
-int FUN_80115db4(int param_1, short param_2, short param_3)
+// FUN_80115db4
+bool consumeMagic(int param_1, short amount, short param_3)
 {
-    // TODO
-
-    int uVar2;
+    /* param_1 = pointer vers une structure 
+    *  param_3 = ?
+    */ 
+    char cVar1; // ?
+    bool uVar2; // undefined4 dans ghidra
     int iVar3;
 
+    // link n'a pas encore eu la barre de magie
     if (!gPlayerData.magicAcquired)
     {
-        uVar2 = 0;
+        uVar2 = false;
     }
+
     else
     {
         iVar3 = gPlayerData.magic;
-        if (iVar3 - param_2 < 0)
+        if (iVar3 - amount < 0)
         {
             if (gPlayerData.magicCapacity != 0)
             {
                 // playSound(0x4806);
             }
-            uVar2 = 0;
+            uVar2 = false;
         }
     }
 
