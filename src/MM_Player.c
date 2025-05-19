@@ -1,3 +1,4 @@
+#include "../include/MM_Audio.h"
 #include "../include/MM_Save.h"
 #include "../include/MM_Player.h"
 
@@ -14,7 +15,7 @@ bool ModifyHealth(int unused_1, short healthChange)
     }
     else if (healthChange > 0)
     {
-        // FUN_8019f0c8(0x480b); // playSound ?
+        playSound(MAYBE_HEALTH_RECOVER_SOUND);
     }
 
     gPlayerData.health += healthChange;
@@ -38,29 +39,12 @@ bool isHealthLow()
 {
     short lowHealthThreshold;
 
-    if (gPlayerData.healthCapacity < 0x51)
-    {
-        lowHealthThreshold = 0x10;
-    }
-    else if (gPlayerData.healthCapacity < 0xa1)
-    {
-        lowHealthThreshold = 0x18;
-    }
-    else if (gPlayerData.healthCapacity < 0xf1)   
-    {   
-        lowHealthThreshold = 0x20; 
-    }
-    else
-    {
-        lowHealthThreshold = 0x2c;
-    }
+    if (gPlayerData.healthCapacity < 0x51) lowHealthThreshold = 0x10;
+    else if (gPlayerData.healthCapacity < 0xa1) lowHealthThreshold = 0x18;
+    else if (gPlayerData.healthCapacity < 0xf1) lowHealthThreshold = 0x20; 
+    else lowHealthThreshold = 0x2c;
 
-    if (gPlayerData.health <= lowHealthThreshold && gPlayerData.health > 0)
-    {
-        return true;
-    }
-
-    return false;
+    return (gPlayerData.health <= lowHealthThreshold && gPlayerData.health > 0);
 }
 
 // FUN_80116088
@@ -71,7 +55,7 @@ void ModifyMagic()
     if (maybeRequestMagic)
     {
         gPlayerData.magic += 4;
-        // FUN_8019f0c8(0x401f); playSound
+        playSound(0x401f); 
 
         if (gPlayerData.magic >= gPlayerData.magicCapacity)
         {
@@ -120,7 +104,7 @@ bool consumeMagic(int param_1, short amount, short param_3)
         {
             if (gPlayerData.magicCapacity != 0)
             {
-                // playSound(0x4806);
+                playSound(MAYBE_ERROR_SOUND);
             }
             uVar2 = false;
         }
